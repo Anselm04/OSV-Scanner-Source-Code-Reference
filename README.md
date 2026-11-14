@@ -1,50 +1,187 @@
-# OSV Scanner — TrillionAI Engineering Reference
+<picture>
+    <source srcset="/docs/images/osv-scanner-full-logo-darkmode.svg"  media="(prefers-color-scheme: dark)">
+    <!-- markdown-link-check-disable-next-line -->
+    <img src="/docs/images/osv-scanner-full-logo-lightmode.svg">
+</picture>
 
-**Research-only source archive for TrillionAI Audit. Not a production TrillionAI service.**
+---
 
-## Official upstream provenance
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://scorecard.dev/viewer/?uri=github.com/google/osv-scanner)
+[![Checks](https://img.shields.io/github/actions/workflow/status/google/osv-scanner/checks.yml?branch=main&label=checks&logo=go&logoColor=white)](https://github.com/google/osv-scanner/actions/workflows/checks.yml)
+[![codecov](https://codecov.io/gh/google/osv-scanner/graph/badge.svg?token=C8IDVX9LP5)](https://codecov.io/gh/google/osv-scanner)
+[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
+[![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
 
-- Official upstream: https://github.com/google/osv-scanner
-- Pinned upstream source commit: `80fe50567a5d6e0ec408353e2ceacca1561b91be`
-- Expected original upstream Git tree: `2cd4812fc60cbf895076672f255426e9321a70ec`
-- Snapshot branch: `osv-scanner-upstream-snapshot`
-- Source directory after import: `upstream/`
-- Root upstream licence: **Apache License 2.0** (preserved inside `upstream/LICENSE`)
-- Pinned upstream tree inventory: **1,413 entries**, including **1,155 tracked file blobs** (~42.9 MB).
-- Snapshot import and verification: **PASSED — imported exact pinned upstream tracked Git tree**.
+Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
+OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI interface to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them.
 
-## Source import and verification
+OSV-Scanner supports a wide range of project types, package managers and features, including but not limited to:
 
-### Verified source snapshot
+- **Languages:** C/C++, Dart, Elixir, Go, Java, Javascript, PHP, Python, R, Ruby, Rust.
+- **Package Managers:** npm, pip, yarn, maven, go modules, cargo, gem, composer, nuget and others.
+- **Operating Systems:** Detects vulnerabilities in OS packages on Linux systems.
+- **Containers:** Scans container images for vulnerabilities in their base images and included packages.
+- **Guided Remediation:** Provides recommendations for package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.
 
-- **GitHub Actions run:** [successful source import and integrity check](https://github.com/Anselm04/OSV-Scanner-Source-Code-Reference/actions/runs/43645160882)
-- **Original upstream commit:** `80fe50567a5d6e0ec408353e2ceacca1561b91be`
-- **Original upstream root tree:** `2cd4812fc60cbf895076672f255426e9321a70ec`
-- **Verified destination `upstream/` tree:** `2cd4812fc60cbf895076672f255426e9321a70ec`
-- **Tracked blobs:** 1,155 (42,916,491 bytes total), with 1,413 Git entries including directories
-- **Excluded tracked files:** None
-- **Licence verified:** Original Apache License 2.0 file present in imported `upstream/LICENSE`
+OSV-Scanner uses the extensible [OSV-Scalibr](https://github.com/google/osv-scalibr) library under the hood to provide this functionality. If a language or package manager is not supported currently, please file a [feature request.](https://github.com/google/osv-scanner/issues)
 
-**This is an exact Git-tree match to the pinned tracked source.** It is not proof of a passing OSV Scanner build, completed tests or commercial product readiness.
+#### Underlying database
 
-The [pinned-source import workflow](.github/workflows/import-osv-scanner-source.yml) fetches exactly the pinned upstream Git commit, copies its tracked source tree under `upstream/` on a dedicated branch, checks the exact Git tree hash, and verifies the source tree on the pushed remote branch. It does **not** execute upstream code.
+The underlying database, [OSV.dev](https://osv.dev/) has several benefits in comparison with closed source advisory databases and scanners:
 
-- [Browse source snapshot after successful import](https://github.com/Anselm04/OSV-Scanner-Source-Code-Reference/tree/osv-scanner-upstream-snapshot/upstream)
-- [Workflow runs](https://github.com/Anselm04/OSV-Scanner-Source-Code-Reference/actions/workflows/import-osv-scanner-source.yml)
+- Covering most open source language and OS ecosystems (including [Git](https://osv.dev/list?q=&ecosystem=GIT)), it’s comprehensive.
+- Each advisory comes from an open and authoritative source (e.g. [GitHub Security Advisories](https://github.com/github/advisory-database), [RustSec Advisory Database](https://github.com/rustsec/advisory-db), [Ubuntu security notices](https://github.com/canonical/ubuntu-security-notices/tree/main/osv))
+- Anyone can suggest improvements to advisories, resulting in a very high quality database.
+- The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
-If GitHub push protection finds credential-shaped fixture data, the workflow must fail. Do not bypass protection. Instead document a precisely scoped exclusion and separately verify the filtered tree. Do not call a filtered snapshot an identical upstream tree.
+The above all results in accurate and actionable vulnerability notifications, which reduces the time needed to resolve them. Check out [OSV.dev](https://osv.dev/) for more details!
 
-The Git archive excludes any separately hosted submodule contents and externally managed Git LFS data, if present. A matching Git tree establishes source-byte integrity relative to the pinned revision; it does not certify runtime correctness or supply-chain safety.
+## Basic installation
 
-## Research goals for TrillionAI Audit
+To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the [releases page](https://github.com/google/osv-scanner/releases) of the GitHub repository. The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use
+`go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest` to build it from source.
 
-- Dependency manifest and lockfile parsing
-- Software vulnerability intelligence and package risk classification
-- Advisory provenance and repeatable vulnerability evidence
-- Supported language and package ecosystem mapping
-- CLI result parsing, bounded execution and finding normalization
-- Correct handling of vulnerability database availability, unknowns, and offline conditions
+## Key Features
 
-All source copyright remains with Google and the original contributors under their applicable licence notices. This research repository does not relicense upstream code or authorise wholesale transfer to proprietary products. Evaluate exact file and dependency licences before incorporating code. Keep the proprietary TrillionAI Audit implementation in its own **private** repository.
+For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner. For detailed information about each feature, click their titles in this README.
 
-No paid infrastructure or production services are activated by this source import.
+Please note: These are the instructions for the latest OSV-Scanner V2 beta. If you are using V1, checkout the V1 [README](https://github.com/google/osv-scanner-v1) and [documentation](https://google.github.io/osv-scanner-v1/) instead.
+
+### [Scanning a source directory](https://google.github.io/osv-scanner/usage)
+
+```bash
+$ osv-scanner scan source -r /path/to/your/dir
+```
+
+This command will recursively scan the specified directory for any supported package files, such as `package.json`, `go.mod`, `pom.xml`, etc. and output any discovered vulnerabilities.
+
+OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
+
+OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details.
+
+#### Supported Lockfiles
+
+OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if your ecosystem is covered, please check out our [detailed documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#supported-lockfiles).
+
+### [Container Scanning](https://google.github.io/osv-scanner/usage/scan-image)
+
+OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities in the following operating system packages and language-specific dependencies.
+
+| Distro Support | Language Artifacts Support |
+| -------------- | -------------------------- |
+| Alpine OS      | Go                         |
+| Debian         | Java                       |
+| Ubuntu         | Node                       |
+|                | Python                     |
+
+See the [full documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#supported-artifacts) for details on support.
+
+**Usage**:
+
+```bash
+$ osv-scanner scan image my-image-name:tag
+```
+
+![screencast of html output of container scanning](https://github.com/user-attachments/assets/8bb95366-27ec-45d1-86ed-e42890f2fb46)
+
+### [License Scanning](https://google.github.io/osv-scanner/usage/license-scanning/)
+
+Check your dependencies' licenses using deps.dev data. For a summary:
+
+```bash
+osv-scanner --licenses path/to/repository
+```
+
+To check against an allowed license list (SPDX format):
+
+```bash
+osv-scanner --licenses="MIT,Apache-2.0" path/to/directory
+```
+
+### [Offline Scanning](https://google.github.io/osv-scanner/usage/offline-mode/)
+
+Scan your project against a local OSV database. No network connection is required after the initial database download. The database can also be manually downloaded.
+
+```bash
+osv-scanner --offline --download-offline-databases ./path/to/your/dir
+```
+
+### [Guided Remediation](https://google.github.io/osv-scanner/experimental/guided-remediation/) (Experimental)
+
+> [!WARNING]
+> Guided remediation (the `fix` command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
+
+OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.
+We currently support remediating vulnerabilities in the following files:
+
+| Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                       |
+| :-------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-changes)          |
+| npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#relock-and-relax-direct-dependencies) |
+| Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)       |
+
+This is available as a headless CLI command, as well as an interactive mode.
+
+#### Example (for npm)
+
+```bash
+$ osv-scanner fix \
+    --max-depth=3 \
+    --min-severity=5 \
+    --ignore-dev  \
+    --strategy=in-place \
+    -L path/to/package-lock.json
+```
+
+#### Interactive mode (for npm)
+
+```bash
+$ osv-scanner fix \
+    -M path/to/package.json \
+    -L path/to/package-lock.json
+```
+
+<img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
+
+## Data Sources and Privacy
+
+OSV-Scanner communicates with the following external services during operation:
+
+### [OSV.dev API](https://osv.dev/)
+
+The primary data source for vulnerability information. OSV-Scanner queries this API to check packages for known vulnerabilities and to identify vendored C/C++ dependencies. Data sent includes package names, versions, ecosystems, and file hashes. Use [`--offline` mode](https://google.github.io/osv-scanner/usage/offline-mode/) to disable network requests and scan against a local database instead.
+
+### [deps.dev API](https://docs.deps.dev/api/)
+
+Used for supplementary package information:
+
+- **Dependency resolution**: Resolves dependency graphs for vulnerability scanning and remediation
+- **Container image scanning**: Queries container image metadata for vulnerability detection
+- **License scanning** (`--licenses` flag): Retrieves license information for packages
+- **Package deprecation**: Checks if packages are deprecated
+
+Data sent includes package names, versions, and ecosystems. No source code is transmitted.
+
+### Package Registries
+
+When using native registry for dependency resolution (instead of deps.dev), OSV-Scanner may query:
+
+| Registry      | URL                            | Used For                             |
+| ------------- | ------------------------------ | ------------------------------------ |
+| Maven Central | `repo.maven.apache.org/maven2` | Maven package metadata and POM files |
+| npm Registry  | `registry.npmjs.org`           | npm package metadata                 |
+| PyPI          | `pypi.org`                     | Python package metadata              |
+
+## Contribute
+
+### Report Problems
+
+If you have what looks like a bug, please use the [GitHub issue tracking system](https://github.com/google/osv-scanner/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
+
+### Contributing code to `osv-scanner`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=google/osv-scanner&type=Date)](https://www.star-history.com/#google/osv-scanner&Date)
