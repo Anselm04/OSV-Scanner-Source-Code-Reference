@@ -11,9 +11,21 @@
 - Source directory after import: `upstream/`
 - Root upstream licence: **Apache License 2.0** (preserved inside `upstream/LICENSE`)
 - Pinned upstream tree inventory: **1,413 entries**, including **1,155 tracked file blobs** (~42.9 MB).
-- Snapshot import and verification: **pending GitHub Actions result**.
+- Snapshot import and verification: **PASSED — imported exact pinned upstream tracked Git tree**.
 
 ## Source import and verification
+
+### Verified source snapshot
+
+- **GitHub Actions run:** [successful source import and integrity check](https://github.com/Anselm04/OSV-Scanner-Source-Code-Reference/actions/runs/43645160882)
+- **Original upstream commit:** `80fe50567a5d6e0ec408353e2ceacca1561b91be`
+- **Original upstream root tree:** `2cd4812fc60cbf895076672f255426e9321a70ec`
+- **Verified destination `upstream/` tree:** `2cd4812fc60cbf895076672f255426e9321a70ec`
+- **Tracked blobs:** 1,155 (42,916,491 bytes total), with 1,413 Git entries including directories
+- **Excluded tracked files:** None
+- **Licence verified:** Original Apache License 2.0 file present in imported `upstream/LICENSE`
+
+**This is an exact Git-tree match to the pinned tracked source.** It is not proof of a passing OSV Scanner build, completed tests or commercial product readiness.
 
 The [pinned-source import workflow](.github/workflows/import-osv-scanner-source.yml) fetches exactly the pinned upstream Git commit, copies its tracked source tree under `upstream/` on a dedicated branch, checks the exact Git tree hash, and verifies the source tree on the pushed remote branch. It does **not** execute upstream code.
 
