@@ -1,0 +1,122 @@
+{
+  "source": "https://github.com/google/osv-scanner.git",
+  "commit": "80fe50567a5d6e0ec408353e2ceacca1561b91be",
+  "number_of_original_workflow_files": 19,
+  "original_ci_is_disabled": true,
+  "files": [
+    {
+      "upstream_path": ".github/workflows/cassettes.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/cassettes.yml",
+      "git_blob": "6a6bfe75cc73ef4126ae555796bf851c9f37f0bd",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/checks.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/checks.yml",
+      "git_blob": "cdbd5ce410386581203d2847b0c8781b378bccff",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/codeql-analysis.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/codeql-analysis.yml",
+      "git_blob": "c63830f9a54a42002e41484db3bbf763b1ce2b0e",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/dependencies.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/dependencies.yml",
+      "git_blob": "2d7a537e8a79c2e4a3f901a7f26e2e727a305103",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/docs-deploy.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/docs-deploy.yml",
+      "git_blob": "acbe5889e6a1bc036c7be09df3817becfd61ca7e",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/goreleaser-nightly.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/goreleaser-nightly.yml",
+      "git_blob": "b93d4a11d6757640d6c5bf15dc50590c68aebc47",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/goreleaser.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/goreleaser.yml",
+      "git_blob": "f6238b0df7f77e12cbdd84402a0dad77ac6a3195",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/links.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/links.yml",
+      "git_blob": "5779ccaebd77198146cf5b4df736e9ab0e4f607e",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/osv-scanner-reusable-pr.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/osv-scanner-reusable-pr.yml",
+      "git_blob": "636b45f9380d87fdd9db34d0bc1a6d5a6fe9d8d5",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/osv-scanner-reusable.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/osv-scanner-reusable.yml",
+      "git_blob": "f709a5989d61f7fcd5b2ddc357cdca994e1bf5c1",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/osv-scanner-unified-action.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/osv-scanner-unified-action.yml",
+      "git_blob": "bca52d66b726db93047af2e4b31063fc590d25d6",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/prerelease-check.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/prerelease-check.yml",
+      "git_blob": "037b34e27c4ebef55e3dbd4d0fee8acc81c4f581",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/renovate-validator.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/renovate-validator.yml",
+      "git_blob": "2344a3e53487cf3e183b6d2a607055349f60b954",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/scorecards.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/scorecards.yml",
+      "git_blob": "c5f401e8ffd9bfbe536b56debf0b52c55738a1be",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/snapshots.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/snapshots.yml",
+      "git_blob": "55d832331ba449968aae91100ffcfb886c374a08",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/staleness.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/staleness.yml",
+      "git_blob": "3422be09eb533d74ea515d86b2717f1146db6b6d",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/tests.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/tests.yml",
+      "git_blob": "dab8e49462efd591011d54882c5ca25bba44448c",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/title.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/title.yml",
+      "git_blob": "c5f9f02e0d5486e8785853eead90e247b62810bd",
+      "original_mode": "100644"
+    },
+    {
+      "upstream_path": ".github/workflows/zizmor.yml",
+      "reference_path": "upstream-workflow-snapshots/osv-scanner/.github/workflows/zizmor.yml",
+      "git_blob": "849f37a596d47d0624657ba729d4bae8e4635d40",
+      "original_mode": "100644"
+    }
+  ]
+}
