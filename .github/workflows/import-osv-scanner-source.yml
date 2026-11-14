@@ -1,0 +1,85 @@
+name: Import and verify pinned OSV Scanner source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-osv-scanner-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: osv-scanner-source-import
+  cancel-in-progress: false
+
+jobs:
+  source-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout research repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Import exact upstream tracked source and verify Git tree
+        shell: bash
+        env:
+          PINNED_SHA: '80fe50567a5d6e0ec408353e2ceacca1561b91be'
+          PINNED_TREE: '2cd4812fc60cbf895076672f255426e9321a70ec'
+          SNAPSHOT_BRANCH: 'osv-scanner-upstream-snapshot'
+        run: |
+          set -euo pipefail
+          git config user.name 'TrillionAI Source Archive Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git remote add upstream-original https://github.com/google/osv-scanner.git
+          git fetch --no-tags --depth=1 upstream-original "$PINNED_SHA"
+          fetched="$(git rev-parse 'FETCH_HEAD^{commit}')"
+          test "$fetched" = "$PINNED_SHA" || {
+            echo "::error::Unexpected upstream commit"
+            exit 1
+          }
+          source_tree="$(git rev-parse 'FETCH_HEAD^{tree}')"
+          test "$source_tree" = "$PINNED_TREE" || {
+            echo "::error::Pinned upstream Git tree differs from expected"
+            exit 1
+          }
+          git cat-file -e "$PINNED_SHA:LICENSE"
+
+          if git ls-remote --exit-code --heads origin "$SNAPSHOT_BRANCH" >/dev/null 2>&1; then
+            git fetch --no-tags origin "refs/heads/$SNAPSHOT_BRANCH"
+            remote_tree="$(git rev-parse 'FETCH_HEAD:upstream')"
+            test "$remote_tree" = "$PINNED_TREE" || {
+              echo "::error::Existing remote snapshot has incorrect source Git tree"
+              exit 1
+            }
+            echo "VERIFIED EXISTING REMOTE SOURCE TREE: $remote_tree"
+            exit 0
+          fi
+
+          git switch -c "$SNAPSHOT_BRANCH"
+          git read-tree --prefix=upstream/ "$PINNED_TREE"
+          local_tree="$(git write-tree)"
+          git commit -m "archive: import pinned OSV Scanner source ($PINNED_SHA)"
+          source_subtree="$(git rev-parse 'HEAD:upstream')"
+          test "$source_subtree" = "$PINNED_TREE" || {
+            echo "::error::Imported source tree differs from pinned upstream"
+            exit 1
+          }
+          echo "VERIFIED LOCAL SOURCE TREE: $source_subtree"
+
+          # Never disable GitHub secret-scanning push protection.
+          git push origin "HEAD:refs/heads/$SNAPSHOT_BRANCH"
+          git fetch --no-tags origin "refs/heads/$SNAPSHOT_BRANCH"
+          remote_tree="$(git rev-parse 'FETCH_HEAD:upstream')"
+          test "$remote_tree" = "$PINNED_TREE" || {
+            echo "::error::Pushed remote source Git tree differs from pinned upstream"
+            exit 1
+          }
+          echo "VERIFIED UPSTREAM COMMIT: $PINNED_SHA"
+          echo "VERIFIED REMOTE SOURCE GIT TREE: $remote_tree"
+          echo "SOURCE BRANCH: $SNAPSHOT_BRANCH"
