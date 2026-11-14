@@ -1,0 +1,39 @@
+{
+  "upstream": "https://github.com/google/osv-scanner.git",
+  "pinned_commit": "80fe50567a5d6e0ec408353e2ceacca1561b91be",
+  "destination_main_sha": "4158f089400b3b4d5abf0d2db07d5ddb0d233f99",
+  "upstream_tracked_entries": 1155,
+  "destination_tracked_entries": 1139,
+  "missing_paths": [
+    ".github/workflows/cassettes.yml",
+    ".github/workflows/checks.yml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/dependencies.yml",
+    ".github/workflows/docs-deploy.yml",
+    ".github/workflows/goreleaser-nightly.yml",
+    ".github/workflows/goreleaser.yml",
+    ".github/workflows/links.yml",
+    ".github/workflows/osv-scanner-reusable-pr.yml",
+    ".github/workflows/osv-scanner-reusable.yml",
+    ".github/workflows/osv-scanner-unified-action.yml",
+    ".github/workflows/prerelease-check.yml",
+    ".github/workflows/renovate-validator.yml",
+    ".github/workflows/scorecards.yml",
+    ".github/workflows/snapshots.yml",
+    ".github/workflows/staleness.yml",
+    ".github/workflows/tests.yml",
+    ".github/workflows/title.yml",
+    ".github/workflows/zizmor.yml"
+  ],
+  "missing_path_count": 19,
+  "missing_upstream_ci_count": 19,
+  "missing_other_count": 0,
+  "mismatched_objects": [],
+  "mismatched_count": 0,
+  "extra_paths": [
+    ".github/workflows/audit-source-once.yml",
+    ".github/workflows/import-osv-scanner-source.yml",
+    "TRILLIONAI_REFERENCE.md"
+  ],
+  "extra_count": 3
+}
